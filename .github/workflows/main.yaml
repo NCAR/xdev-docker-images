@@ -11,9 +11,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+      fail-fast: true
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Build
+      - name: Python ${{ matrix.python-version }} build
         run: |
-          docker build --rm -f "miniconda3/debian/Dockerfile" -t xdev-miniconda:latest "miniconda3/debian" --build-arg PYTHON_VERSION=3.6
+          docker build --rm -f "miniconda3/debian/Dockerfile" -t xdev-miniconda:latest "miniconda3/debian" --build-arg PYTHON_VERSION=${{ matrix.python-version }}

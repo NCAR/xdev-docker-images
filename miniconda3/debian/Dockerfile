@@ -24,6 +24,6 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 
 RUN /opt/conda/bin/conda install python=${PYTHON_VERSION} dask xarray netcdf4 zarr matplotlib pytest pytest-xdist && \
     /opt/conda/bin/conda list && \
-    /opt/conda/bin/conda clean -afy
+    /opt/conda/bin/conda clean -aftipsy
 
 CMD [ "/bin/bash" ]

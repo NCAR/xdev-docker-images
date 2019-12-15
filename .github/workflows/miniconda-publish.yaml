@@ -1,0 +1,44 @@
+name: Miniconda
+
+on:
+  push:
+    branches: "master"
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+      fail-fast: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        with:
+          name: ncarxdev/miniconda:${{ matrix.python-version }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: "miniconda3/debian/Dockerfile"
+          buildargs: PYTHON_VERSION
+
+  latest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        env:
+          PYTHON_VERSION: 3.8
+        with:
+          name: ncarxdev/miniconda:latest
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: "miniconda3/debian/Dockerfile"
+          buildargs: PYTHON_VERSION

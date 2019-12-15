@@ -18,6 +18,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Python ${{ matrix.python-version }} build
-        run: |
-          docker build --rm -f "miniconda3/debian/Dockerfile" -t xdev-miniconda:latest "miniconda3/debian" --build-arg PYTHON_VERSION=${{ matrix.python-version }}
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        with:
+          name: miniconda
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: "miniconda3/debian/Dockerfile"
+          buildargs: PYTHON_VERSION

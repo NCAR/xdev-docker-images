@@ -22,7 +22,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     /opt/conda/bin/conda config --add channels conda-forge && \
     /opt/conda/bin/conda update --all
 
-RUN /opt/conda/bin/conda install python=${PYTHON_VERSION} dask xarray>=0.14.1 netcdf4 zarr matplotlib pytest pytest-xdist numba && \
+RUN /opt/conda/bin/conda install python=${PYTHON_VERSION} dask xarray>=0.14.1 netcdf4 zarr matplotlib pytest pytest-xdist && \
     /opt/conda/bin/conda list && \
     /opt/conda/bin/conda clean -afy
 

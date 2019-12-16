@@ -11,7 +11,6 @@ RUN apt-get update --fix-missing && \
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
-    /opt/conda/bin/conda clean -tipsy && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc && \
@@ -22,7 +21,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     /opt/conda/bin/conda config --add channels conda-forge && \
     /opt/conda/bin/conda update --all
 
-RUN /opt/conda/bin/conda install python=${PYTHON_VERSION} dask xarray netcdf4 zarr matplotlib pytest pytest-xdist && \
+RUN /opt/conda/bin/conda install python=${PYTHON_VERSION} dask xarray netcdf4 zarr matplotlib pytest pytest-xdist pytest-cov scipy pooch && \
     /opt/conda/bin/conda list && \
     /opt/conda/bin/conda clean -aftipsy
 

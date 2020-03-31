@@ -29,7 +29,7 @@ RUN echo "Installing Miniconda..." && \
 
 RUN conda update -n base -c conda-forge conda
 
-RUN echo "Installing Packages..." \
+RUN echo "Installing Packages..." && \
     conda install -c conda-forge python=${PYTHON_VERSION} dask xarray netcdf4 zarr matplotlib pytest pytest-xdist pytest-cov scipy pooch numba intake && \
     conda clean -aftipsy
 

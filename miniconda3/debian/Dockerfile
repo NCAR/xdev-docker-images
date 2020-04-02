@@ -27,12 +27,12 @@ RUN echo "Installing Miniconda..." && \
     /opt/conda/bin/conda config --add channels conda-forge && \
     /opt/conda/bin/conda update --all
 
-RUN conda update -n base -c conda-forge conda
-
-RUN echo "Installing Packages..." \
-    conda install -c conda-forge python=${PYTHON_VERSION} dask xarray netcdf4 zarr matplotlib pytest pytest-xdist pytest-cov scipy pooch numba intake && \
-    conda clean -aftipsy
+RUN /opt/conda/bin/conda install -c conda-forge python=${PYTHON_VERSION} dask xarray netcdf4 zarr matplotlib pytest pytest-xdist pytest-cov scipy pooch numba intake && \
+    /opt/conda/bin/conda list && \
+    /opt/conda/bin/conda clean -aftipsy
 
 RUN conda list
+
+RUN python --version
 
 CMD [ "/bin/bash" ]
